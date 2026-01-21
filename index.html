@@ -1,71 +1,85 @@
-<div><p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">Para criar um código básico de site similar ao que você indicou, mas sem o visual (apenas a estrutura funcional simples em PHP), com o nome "KeyptonAuth", posso te ajudar com um exemplo inicial. Vou montar um código básico que simula uma página inicial simples, sem estilos, apenas o básico para você expandir depois.</p><p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">Aqui está um exemplo em PHP de uma página principal simples chamada "KeyptonAuth":</p><pre><code class="lang-php">&amp;lt;?php
-// KeyptonAuth - Página inicial simples sem visual elaborado
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Keyptonauth</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #fff;
+  }
 
-// Simulando um sistema simples de autenticação (exemplo básico)
-session_start();
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
 
-if (isset($_POST['login'])) {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+  header {
+    padding: 20px 0;
+    background-color: #1f1f1f;
+  }
 
-    // Exemplo básico de usuário e senha fixos
-    if ($username === 'admin' &amp;amp;&amp;amp; $password === '1234') {
-        $_SESSION['user'] = $username;
-        header('Location: home.php');
-        exit;
-    } else {
-        $error = "Usuário ou senha inválidos.";
-    }
-}
+  h1 {
+    font-size: 36px;
+    margin: 0;
+    color: #00ffcc;
+  }
 
-?&amp;gt;
+  .content {
+    padding: 40px 20px;
+  }
 
-&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html lang="pt-BR"&amp;gt;
-&amp;lt;head&amp;gt;
-    &amp;lt;meta charset="UTF-8"&amp;gt;
-    &amp;lt;title&amp;gt;KeyptonAuth - Login&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
-    &lt;h1&gt;KeyptonAuth - Login&lt;/h1&gt;
-    &amp;lt;?php if (!empty($error)): ?&amp;gt;
-        &amp;lt;p style="color:red;"&amp;gt;&amp;lt;?php echo htmlspecialchars($error); ?&amp;gt;&lt;p&gt;&lt;/p&gt;
-    &amp;lt;?php endif; ?&amp;gt;
-    &amp;lt;form method="post" action=""&amp;gt;
-        &amp;lt;label&amp;gt;Usuário: &amp;lt;input type="text" name="username" required&amp;gt;&amp;lt;/label&amp;gt;&lt;br&gt;
-        &amp;lt;label&amp;gt;Senha: &amp;lt;input type="password" name="password" required&amp;gt;&amp;lt;/label&amp;gt;&lt;br&gt;
-        &amp;lt;button type="submit" name="login"&amp;gt;Entrar&amp;lt;/button&amp;gt;
-    &amp;lt;/form&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-</code></pre>
-<p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">E aqui um arquivo <code>home.php</code> para a página após login:</p><pre><code class="lang-php">&amp;lt;?php
-session_start();
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
 
-if (!isset($_SESSION['user'])) {
-    header('Location: index.php');
-    exit;
-}
+  button {
+    padding: 15px 30px;
+    font-size: 16px;
+    background-color: #00ffcc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
 
-?&amp;gt;
+  button:hover {
+    background-color: #00cccc;
+  }
 
-&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html lang="pt-BR"&amp;gt;
-&amp;lt;head&amp;gt;
-    &amp;lt;meta charset="UTF-8"&amp;gt;
-    &amp;lt;title&amp;gt;KeyptonAuth - Home&amp;lt;/title&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
-    &lt;h1&gt;Bem-vindo, &amp;lt;?php echo htmlspecialchars($_SESSION['user']); ?&amp;gt;!&lt;/h1&gt;
-    &lt;p&gt;Você está autenticado no KeyptonAuth.&lt;/p&gt;
-    &amp;lt;a href="logout.php"&amp;gt;Sair
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-</code></pre>
-<p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">E um <code>logout.php</code> para encerrar a sessão:</p><pre><code class="lang-php">&amp;lt;?php
-session_start();
-session_destroy();
-header('Location: index.php');
-exit;
-</code></pre>
-<p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">Esse código é básico, funcional, e não tem aparência visual específica, só o conteúdo essencial da autenticação simples.</p><p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">Se quiser, posso ajudar a ampliar com funcionalidades específicas ou melhorias. Quer?</p></div>
+  footer {
+    padding: 20px 0;
+    background-color: #1f1f1f;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Keyptonauth</h1>
+    </header>
+    <section class="content">
+        <h2>Bem-vindo ao Keyptonauth</h2>
+        <p>Este é um site de exemplo inspirado no site original.</p>
+        <button id="btn-login">Login</button>
+    </section>
+    <footer>
+        <p>&copy; 2024 Keyptonauth. Todos os direitos reservados.</p>
+    </footer>
+</div>
+
+<script>
+  document.getElementById('btn-login').addEventListener('click', () => {
+    alert('Botão de login clicado!');
+  });
+</script>
+</body>
+</html>
