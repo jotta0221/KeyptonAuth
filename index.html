@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keypton Auth - Oficial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --bg: #0a0a0c; --card: #121217; --primary: #8a2be2; --text: #ffffff; --gray: #a0a0a0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        .page { display: none; padding: 20px; min-height: 100vh; box-sizing: border-box; }
+        .active { display: block; }
+        .login-card { text-align: center; margin-top: 100px; padding: 30px; background: var(--card); border-radius: 20px; border: 1px solid var(--primary); margin-inline: 20px; }
+        .btn-discord { background: #7289da; color: white; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: block; margin-top: 20px; border: none; width: 100%; cursor: pointer; }
+        .header { margin-bottom: 20px; }
+        .header h1 { color: var(--primary); font-size: 24px; margin: 0; }
+        .stat-card { background: var(--card); border: 1px solid #2a2a35; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .act-btn { background: var(--card); border: 1px solid #2a2a35; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; }
+        .act-btn i { font-size: 24px; color: var(--primary); margin-bottom: 8px; display: block; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; background: #1a1a23; border: 1px solid #2a2a35; color: white; border-radius: 8px; box-sizing: border-box; }
+        .btn-save { width: 100%; padding: 15px; background: var(--primary); border: none; color: white; font-weight: bold; border-radius: 10px; margin-top: 10px; }
+        .back-link { color: var(--gray); text-decoration: none; display: inline-block; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <div id="loginPage" class="page active">
+        <div class="login-card">
+            <div style="font-size: 50px;">🛡️</div>
+            <h1>Keypton Auth</h1>
+            <p>Acesse o painel de revendedor</p>
+            <button onclick="navegar('dashPage')" class="btn-discord">ENTRAR COM DISCORD</button>
+        </div>
+    </div>
+
+    <div id="dashPage" class="page">
+        <div class="header">
+            <h1>Painel Keypton</h1>
+            <p style="font-size: 12px; color: var(--gray);">Bem-vindo, Administrador</p>
+        </div>
+        <div class="stat-card">
+            <div style="display: flex; justify-content: space-between;">
+                <span>Status do Sistema:</span>
+                <span style="color: #00ff7f;">● Online</span>
+            </div>
+        </div>
+        <div class="action-grid">
+            <div class="act-btn" onclick="navegar('genPage')">
+                <i class="fas fa-plus-circle"></i>
+                <span>Gerar Key</span>
+            </div>
+            <div class="act-btn" onclick="alert('Funcionalidade em breve!')">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="genPage" class="page">
+        <a href="#" onclick="navegar('dashPage')" class="back-link"><i class="fas fa-arrow-left"></i> Voltar</a>
+        <h2>Gerar Acesso</h2>
+        <div class="stat-card">
+            <label>Nome do Usuário</label>
+            <input type="text" id="username" placeholder="Ex: usuario_vip">
+            <label>Senha</label>
+            <input type="text" id="password" placeholder="Defina uma senha">
+            <label>Plano</label>
+            <select id="plan">
+                <option value="30 Dias">Mensal (30 Dias)</option>
+                <option value="90 Dias">Trimestral (90 Dias)</option>
+                <option value="Vitalício">Vitalício</option>
+            </select>
+            <button class="btn-save" onclick="enviarParaDiscord()">CRIAR E ENVIAR</button>
+        </div>
+    </div>
+
+    <script>
+        // --- COLE O LINK DA SUA WEBHOOK DO DISCORD ABAIXO ---
+        const webhook_url = "COLE_SUA_WEBHOOK_AQUI";
+
+        function navegar(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        async function enviarParaDiscord() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const plan = document.getElementById('plan').value;
+
+            if(!user || !pass) return alert("Preencha todos os campos!");
+
+            if(webhook_url.includes("COLE_SUA_WEBHOOK")) {
+                alert("Erro: Você precisa colar o link da sua Webhook no código!");
+                return;
+            }
+
+            try {
+                await fetch(webhook_url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: "🚀 Nova Credencial Gerada!",
+                            color: 9055970,
+                            fields: [
+                                { name: "👤 Usuário", value: user, inline: true },
+                                { name: "🔑 Senha", value: pass, inline: true },
+                                { name: "⏳ Validade", value: plan, inline: false }
+                            ],
+                            footer: { text: "Keypton Auth - Sistema Oficial" }
+                        }]
+                    })
+                });
+                alert("✅ Sucesso! Os dados foram enviados para o seu Discord.");
+                navegar('dashPage');
+            } catch (err) {
+                alert("Erro ao enviar para o Discord. Verifique sua conexão.");
+            }
+        }
+    </script>
+</body>
+</html>
