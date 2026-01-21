@@ -1,179 +1,71 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptonAuth - Licenciamento Profissional</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        
-        :root {
-            --primary: #a020f0;
-            --bg: #060608;
-            --card: #111116;
-            --text: #ffffff;
-        }
+<div><p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">Para criar um código básico de site similar ao que você indicou, mas sem o visual (apenas a estrutura funcional simples em PHP), com o nome "KeyptonAuth", posso te ajudar com um exemplo inicial. Vou montar um código básico que simula uma página inicial simples, sem estilos, apenas o básico para você expandir depois.</p><p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">Aqui está um exemplo em PHP de uma página principal simples chamada "KeyptonAuth":</p><pre><code class="lang-php">&amp;lt;?php
+// KeyptonAuth - Página inicial simples sem visual elaborado
 
-        body {
-            background-color: var(--bg);
-            background-image: radial-gradient(circle at top right, #1a0b2e 0%, var(--bg) 70%);
-            color: var(--text);
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+// Simulando um sistema simples de autenticação (exemplo básico)
+session_start();
 
-        /* Navbar */
-        nav {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            background: rgba(6, 6, 8, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 100;
-        }
-        .logo { font-weight: 700; font-size: 22px; color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+if (isset($_POST['login'])) {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-        /* Conteúdo */
-        .page { display: none; animation: fadeIn 0.4s ease; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    // Exemplo básico de usuário e senha fixos
+    if ($username === 'admin' &amp;amp;&amp;amp; $password === '1234') {
+        $_SESSION['user'] = $username;
+        header('Location: home.php');
+        exit;
+    } else {
+        $error = "Usuário ou senha inválidos.";
+    }
+}
 
-        /* Hero */
-        .hero { text-align: center; padding: 60px 20px; }
-        .hero h1 { font-size: 34px; margin-bottom: 10px; }
-        .hero span { color: var(--primary); }
-        .hero p { color: #888; font-size: 14px; margin-bottom: 30px; }
+?&amp;gt;
 
-        /* Botões */
-        .btn-main {
-            background: var(--primary);
-            color: white;
-            padding: 14px 30px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(160, 32, 240, 0.4);
-            display: inline-block;
-        }
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang="pt-BR"&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta charset="UTF-8"&amp;gt;
+    &amp;lt;title&amp;gt;KeyptonAuth - Login&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &lt;h1&gt;KeyptonAuth - Login&lt;/h1&gt;
+    &amp;lt;?php if (!empty($error)): ?&amp;gt;
+        &amp;lt;p style="color:red;"&amp;gt;&amp;lt;?php echo htmlspecialchars($error); ?&amp;gt;&lt;p&gt;&lt;/p&gt;
+    &amp;lt;?php endif; ?&amp;gt;
+    &amp;lt;form method="post" action=""&amp;gt;
+        &amp;lt;label&amp;gt;Usuário: &amp;lt;input type="text" name="username" required&amp;gt;&amp;lt;/label&amp;gt;&lt;br&gt;
+        &amp;lt;label&amp;gt;Senha: &amp;lt;input type="password" name="password" required&amp;gt;&amp;lt;/label&amp;gt;&lt;br&gt;
+        &amp;lt;button type="submit" name="login"&amp;gt;Entrar&amp;lt;/button&amp;gt;
+    &amp;lt;/form&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+</code></pre>
+<p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">E aqui um arquivo <code>home.php</code> para a página após login:</p><pre><code class="lang-php">&amp;lt;?php
+session_start();
 
-        /* Grid de Planos (Igual à Foto) */
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+if (!isset($_SESSION['user'])) {
+    header('Location: index.php');
+    exit;
+}
 
-        .plan-card {
-            background: var(--card);
-            border: 1px solid rgba(160, 32, 240, 0.2);
-            padding: 40px 25px;
-            border-radius: 20px;
-            text-align: center;
-            transition: 0.3s;
-        }
-        .plan-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .plan-card h3 { font-size: 22px; margin-bottom: 10px; }
-        .plan-card .price { font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 25px; }
-        .plan-card ul { list-style: none; padding: 0; margin-bottom: 30px; text-align: left; }
-        .plan-card li { margin: 12px 0; font-size: 14px; color: #bbb; display: flex; align-items: center; gap: 10px; }
-        .plan-card li i { color: var(--primary); }
+?&amp;gt;
 
-        /* Dashboard de Gerar Key */
-        .form-box {
-            background: var(--card);
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 400px;
-            margin: 40px auto;
-            border: 1px solid var(--primary);
-        }
-        input, select { 
-            width: 100%; padding: 14px; margin: 10px 0; 
-            background: #1a1a23; border: 1px solid #333; 
-            color: white; border-radius: 10px; box-sizing: border-box; 
-        }
-
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="logo">CryptonAuth</div>
-        <div style="color: white;"><i class="fas fa-bars"></i></div>
-    </nav>
-
-    <div id="homePage" class="page active">
-        <section class="hero">
-            <h1>Soluções de <span>Autenticação</span><br>Para seu Software</h1>
-            <p>Segurança de ponta com gerenciamento simplificado.</p>
-            <button class="btn-main" onclick="irPara('dashPage')">ACESSAR PAINEL</button>
-        </section>
-
-        <div class="plans-grid">
-            <div class="plan-card">
-                <h3>Plano Mensal</h3>
-                <div class="price">R$ 29,90</div>
-                <ul>
-                    <li><i class="fas fa-check"></i> 30 dias de acesso</li>
-                    <li><i class="fas fa-check"></i> Suporte Especializado</li>
-                    <li><i class="fas fa-check"></i> Gerenciador de HWID</li>
-                </ul>
-                <button class="btn-main" style="width: 100%;">COMPRAR</button>
-            </div>
-
-            <div class="plan-card" style="border-color: var(--primary);">
-                <h3 style="color: var(--primary);">Vitalício</h3>
-                <div class="price">R$ 99,90</div>
-                <ul>
-                    <li><i class="fas fa-check"></i> Acesso permanente</li>
-                    <li><i class="fas fa-check"></i> Suporte Prioritário</li>
-                    <li><i class="fas fa-check"></i> Todas as Funções</li>
-                </ul>
-                <button class="btn-main" style="width: 100%;">COMPRAR</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="dashPage" class="page">
-        <div class="form-box">
-            <h2 style="text-align: center; color: var(--primary);">Gerar Credencial</h2>
-            <input type="text" id="user" placeholder="Usuário">
-            <input type="text" id="pass" placeholder="Senha">
-            <select id="plano">
-                <option>Mensal (30 Dias)</option>
-                <option>Trimestral (90 Dias)</option>
-                <option>Vitalício</option>
-            </select>
-            <button class="btn-main" style="width: 100%;" onclick="gerar()">GERAR E ENVIAR</button>
-            <p onclick="irPara('homePage')" style="text-align:center; color:gray; cursor:pointer; margin-top:15px;">Voltar para o início</p>
-        </div>
-    </div>
-
-    <script>
-        // Função para trocar de página
-        function irPara(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
-        }
-
-        // Função de Gerar Key
-        function gerar() {
-            const u = document.getElementById('user').value;
-            if(!u) return alert("Por favor, digite um usuário!");
-            
-            alert("✅ Sucesso! Os dados de " + u + " foram enviados para o Discord.");
-            irPara('homePage');
-        }
-    </script>
-</body>
-</html>
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang="pt-BR"&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta charset="UTF-8"&amp;gt;
+    &amp;lt;title&amp;gt;KeyptonAuth - Home&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &lt;h1&gt;Bem-vindo, &amp;lt;?php echo htmlspecialchars($_SESSION['user']); ?&amp;gt;!&lt;/h1&gt;
+    &lt;p&gt;Você está autenticado no KeyptonAuth.&lt;/p&gt;
+    &amp;lt;a href="logout.php"&amp;gt;Sair
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+</code></pre>
+<p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">E um <code>logout.php</code> para encerrar a sessão:</p><pre><code class="lang-php">&amp;lt;?php
+session_start();
+session_destroy();
+header('Location: index.php');
+exit;
+</code></pre>
+<p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">Esse código é básico, funcional, e não tem aparência visual específica, só o conteúdo essencial da autenticação simples.</p><p class="MuiTypography-root MuiTypography-bodyMedium MuiTypography-paragraph css-14g3j2x">Se quiser, posso ajudar a ampliar com funcionalidades específicas ou melhorias. Quer?</p></div>
